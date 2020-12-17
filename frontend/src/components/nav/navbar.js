@@ -37,8 +37,7 @@ class NavBar extends React.Component {
   render() {
       return (
         <div className="navbar">
-            <h1>MTA Tracker</h1>
-          <button onClick={() => this.props.getFeed()}>Get G</button>
+           
             { this.getLinks() }
         </div>
       );

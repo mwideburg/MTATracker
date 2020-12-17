@@ -16,7 +16,7 @@ class GTrain extends React.Component {
     async componentDidMount(){
         var requestSettings = {
             method: 'GET',
-            url: 'https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-g',
+            url: 'https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-si',
             encoding: null,
             headers: {
                 'x-api-key': 'Y6uzeeKW5s58j2e1NxdDMDBKAyT1o4N7rltQeqW6'
@@ -93,22 +93,20 @@ class GTrain extends React.Component {
             
             let x = train.tripUpdate.stopTimeUpdate
             let info = x.map(ele => {
-                debugger
-                if(ele.stopId === "G32N"){
+                
+                
                 let arr = ele.arrival ? this.formatTime(ele.arrival.time) : "No Arrival Updates"
                 let dep = ele.departure ? this.formatTime(ele.departure.time) : "No Departure Updates"
 
                 
-                return (<li key={i++}>
-                    StopId: "Myrtle-Willoughby North"
-                    Arrival: {arr } 
-                    Departure: {dep }
-                        </li>)}
+                return ele.stopId + " "
+                    
             })
             
             return (
                 <div key={train.id}>
                     <ul>
+                        TRAIN {train.id}<br/>
                         {info}
                     </ul>
                 </div>

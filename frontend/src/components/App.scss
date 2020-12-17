@@ -1,2 +1,31 @@
 @import '../assets/stylesheets/00_reset.scss';
 @import '../assets/stylesheets/01_navbar.scss';
+
+
+.title{
+    font-family: sans-serif;
+    letter-spacing: 4px;
+}
+
+.main-container{
+    display: flex;
+    justify-content: center;
+}
+.feeds-container{
+    display:grid;
+    grid-template-columns: 60px 60px 60px 60px 60px 60px;
+}
+
+.line-icon{
+    height: 40px;
+    width: 40px;
+    margin: 5px;
+    transition: .3s;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: .3s;
+    -webkit-transition-timing-function: ease-in-out;
+}
+.line-icon:hover{
+    opacity: .7;
+    cursor: pointer;
+}

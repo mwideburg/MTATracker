@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { logout, getFeed } from '../../actions/session_actions';
+import { logout } from '../../actions/session_actions';
 
 import NavBar from './navbar';
 
@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 
 const mDTP = dispatch => {
   return {
-    getFeed: () => dispatch(getFeed()),
+   
     logout: () => dispatch(logout())
   }
 

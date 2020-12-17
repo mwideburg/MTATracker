@@ -10,6 +10,7 @@ import SignupFormContainer from './session/signup_form_container';
 import ProfileContainer from './profile/profile_container';
 import TweetComposeContainer from './tweets/tweet_compose_container';
 import GTrain from './trains/gtrain_component'
+import Feeds from './feeds/feeds'
 import './App.scss';
 const App = () => (
   <div>
@@ -23,8 +24,8 @@ const App = () => (
       <ProtectedRoute exact path="/profile" component={ProfileContainer} />
       <ProtectedRoute exact path="/new_tweet" component={TweetComposeContainer} />
     </Switch>
-
-    <GTrain />
+    <Feeds />
+    {/* <GTrain /> */}
   </div>
 );
 
