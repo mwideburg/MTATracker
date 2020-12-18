@@ -7,28 +7,47 @@ var GtfsRealtimeBindings = require('gtfs-realtime-bindings');
 class GTrain extends React.Component {
     constructor(props){
         super(props)
+        debugger
         this.state = {
+            path: props.url,
             trains : 0,
             wait: 0
         }
         this.processFeed = this.processFeed.bind(this)
     }
     async componentDidMount(){
-        var requestSettings = {
-            method: 'GET',
-            url: 'https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-si',
-            encoding: null,
-            headers: {
-                'x-api-key': 'Y6uzeeKW5s58j2e1NxdDMDBKAyT1o4N7rltQeqW6'
-            }
+        // if(this.props.url != null){
+        //     var requestSettings = {
+        //         method: 'GET',
+        //         url: 'https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs' + `${this.state.path}`,
+        //         encoding: null,
+        //         headers: {
+        //             'x-api-key': 'Y6uzeeKW5s58j2e1NxdDMDBKAyT1o4N7rltQeqW6'
+        //         }
+    
+        //     };
 
-        };
+        //     request(requestSettings, (error, response, body) => this.processFeed(error, response, body))
+        // }
         
         
-        request(requestSettings, (error, response, body) => this.processFeed(error, response, body))
         
     }
-    componentDidUpdate(){
+    async getFeed(){
+        
+        if (this.props.url != null) {
+            var requestSettings = {
+                method: 'GET',
+                url: 'https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs' + `${this.props.url}`,
+                encoding: null,
+                headers: {
+                    'x-api-key': 'Y6uzeeKW5s58j2e1NxdDMDBKAyT1o4N7rltQeqW6'
+                }
+
+            };
+
+            request(requestSettings, (error, response, body) => this.processFeed(error, response, body))
+        }
         console.log(this.state.trains)
     }
 
@@ -88,6 +107,10 @@ class GTrain extends React.Component {
         if (this.state.wait === 0){
             return null
         }
+        if(this.props.url === null){
+            return null
+        }
+        this.getFeed()
         let i = 0
         let trains = this.state.trains.map(train => {
             
@@ -99,7 +122,7 @@ class GTrain extends React.Component {
                 let dep = ele.departure ? this.formatTime(ele.departure.time) : "No Departure Updates"
 
                 
-                return ele.stopId + " "
+                return ele.stopId + " " + "arrival" + arr + " " + "dep" + dep
                     
             })
             
