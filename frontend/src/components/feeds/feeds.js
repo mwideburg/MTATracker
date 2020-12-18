@@ -150,7 +150,7 @@ class Feeds extends React.Component {
             let dep = ele.departure ? this.formatTime(ele.departure.time) : "No Departure Updates"
             north.push(arr)
         })
-        
+        north = this.formatSouth(south)
         return north
 
     }
@@ -162,6 +162,7 @@ class Feeds extends React.Component {
                 south.push(arr)
             }
         })
+        south = this.formatSouth(south)
         return south
 
     }
@@ -192,7 +193,7 @@ class Feeds extends React.Component {
     }
 
     getNextTwoTrains(){
-        
+
     }
     formatTime(time) {
         // Copy and pasted typical unix time conversion, but realized all you do is times by 1000, and then your pretty much good
@@ -222,8 +223,8 @@ class Feeds extends React.Component {
         if (this.state.trains != 0) {
         let trains = this.filterTrainsByStation()
         
-        north = this.formatNorth(trains[0])
-        south = this.formatSouth(trains[1])
+        north = trains[0]
+        south = trains[1]
         
         }
         return (
