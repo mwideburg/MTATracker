@@ -1,6 +1,11 @@
 @import '../assets/stylesheets/00_reset.scss';
 @import '../assets/stylesheets/01_navbar.scss';
-
+.body{
+    font-family: sans-serif ;
+}
+h2{
+    font-family: sans-serif ;
+}
 
 .title{
     font-family: sans-serif;
@@ -50,6 +55,7 @@
 
 .sidebar {
     width: 500px;
+    min-width: 280px;
     font-family: sans-serif;
     font-size: 16px;
     border: 1px rgb(196, 196, 196) solid;
@@ -60,8 +66,20 @@
     display: block;
     color: gray;
     overflow-y: scroll;
+    img{
+        margin-bottom: 15px;
+        padding-right: 180px;
+        padding-bottom: 10px;
+        padding-top: 0px;
+        border-bottom: 1px rgba(170, 170, 170, 0.4) solid;
+    }
     h2, h3{
+        padding: 5px;
         color: black;
+        
+    }
+    h2{
+        text-align: center;
     }
     li{
         margin: 10px;
@@ -74,7 +92,9 @@
 .station-details{
 display: block;
 }
-
+.train-animation{
+    animation: updated 3s 1;
+}
 .station-select-btn{
     color: gray;
     text-align: left;
@@ -87,5 +107,34 @@ display: block;
     color: rgb(71, 161, 218);
     opacity: .7;
     cursor: pointer;
+}
+.row{
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+}
+.col{
+    font-family: sans-serif;
+    display: block;
+    text-align: center;
+    h2, h3{
+        padding: 5px;
+        color: black;
+        
+    }
+    li{
+    margin: 15px;
+    }
+    
+    height: 100%;
+    padding: 10px;
+    width: 50%;
+}
+
+@keyframes updated{
+    0% {color: rgb(247, 64, 64);}
+    75% {color: rgb(247, 64, 64);}
+    
+    100% {color: gray;}
 }
 

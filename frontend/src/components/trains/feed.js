@@ -5,7 +5,7 @@ const Feed = ({ station, url }) => {
     // if(station === null){
     //     return null
     // }
-    debugger
+    
     let trains = 0;
     
     let path = url

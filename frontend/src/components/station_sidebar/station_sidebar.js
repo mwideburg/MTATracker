@@ -28,7 +28,9 @@ const SidebarStations = ({items, line, updateStation}) => {
     
     const that = this
     if(items === ""){
-        return ""
+        return (
+            <h2>Select Train To Access Stations</h2>
+        )
     }
     let direction = lineDir[line]
     let names = Object.keys(items[line])
