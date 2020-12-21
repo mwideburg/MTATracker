@@ -26,6 +26,7 @@ import Z from '../../assets/images/Z.svg'
 import {stations} from './stations'
 import SidebarStations from '../station_sidebar/station_sidebar'
 import ClosestTrains from './closest_trains_container'
+import { set } from 'mongoose';
 const images = {
     "1": One,
     "2": Two,
@@ -91,6 +92,10 @@ class MainPage extends React.Component {
             this.getFeed()
             
         }, 3000)
+        setTimeout(() => {
+            document.getElementById('closest-trains').style.opacity = 1
+
+        }, 500)
     }
     async getFeed() {
         // Beautiful async!
@@ -124,6 +129,7 @@ class MainPage extends React.Component {
                 }
             });
         }
+        
         this.setState({ trains: x })
     }
     filterTrainsByStation(){
@@ -156,11 +162,11 @@ class MainPage extends React.Component {
         
         x.filter(ele => ele.stopId[3] === "N").forEach(ele => {
             
-            let arr = ele.arrival ? this.formatTime(ele.arrival.time) : "No Arrival Updates"
-            let dep = ele.departure ? this.formatTime(ele.departure.time) : "No Departure Updates"
+            let arr = ele.arrival ? ele.arrival.time : "No Arrival Updates"
+            let dep = ele.departure ? ele.departure.time : "No Departure Updates"
             north.push(arr)
         })
-        north = this.formatNorth(north, animation)
+        // north = this.formatNorth(north, animation)
         return north
 
     }
@@ -168,11 +174,11 @@ class MainPage extends React.Component {
         let south = []
         x.forEach(ele => {
             if (ele.stopId[3] === "S") {
-                let arr = ele.arrival ? this.formatTime(ele.arrival.time) : "No Arrival Updates"
+                let arr = ele.arrival ? ele.arrival.time : "No Arrival Updates"
                 south.push(arr)
             }
         })
-        south = this.formatSouth(south, animation)
+        // south = this.formatSouth(south, animation)
         return south
 
     }
@@ -182,7 +188,7 @@ class MainPage extends React.Component {
             
             return (
                 <li key={ele}>
-                    <p className={animation}> Arrival: {ele}</p>
+                    <p className={animation}> Arrival: {this.formatTime(ele)}</p>
                 </li>
             )
         })
@@ -196,7 +202,7 @@ class MainPage extends React.Component {
             
             return (
                 <li key={ele}>
-                   <p className={animation}> Arrival: {ele}</p>
+                    <p className={animation}> Arrival: {this.formatTime(ele)}</p>
                 </li>
             )
         })
@@ -206,7 +212,7 @@ class MainPage extends React.Component {
     }
 
     getImage(){
-        return this.state.image != "" ? <img src={this.state.image} alt={this.state.line} className="line-icon"></img> : ""
+        return this.state.image != "" ? <img src={this.state.image} alt={this.state.line} className="line-icon selected"></img> : ""
     }
     setUpdateAnimation(){
         let counter = this.state.firstTimes + 1
@@ -246,15 +252,19 @@ class MainPage extends React.Component {
         let south = null
         let station = (this.state.name === null) ? "Select Station to Get Updates" : this.state.name
 
-        
-
+        let allNorth
+        let allSouth
         if (this.state.trains != 0) {
             // if a feed is selected filter and format the feed
             let trains = this.filterTrainsByStation()
             north = trains[0]
             south = trains[1]
-            
+            allNorth = this.formatNorth(north)
+            allSouth = this.formatSouth(south)
         }
+
+        // format time of trains for this compnent
+   
         
         // Grab svg of the selected line
         const lineImg = this.getImage()
@@ -275,32 +285,32 @@ class MainPage extends React.Component {
             <div className={"main-middle"}>
             <center><h2 className="title">SUBWAY LINES</h2></center>
             <div className="feeds-container cl">
-                        <img src={A} alt="A" className="line-icon" onClick={() => this.getStations("A", "-ace")}></img>
-                        <img src={C} alt="C" className="line-icon" onClick={() => this.getStations("C", "-ace")}></img>
-                        <img src={E} alt="E" className="line-icon" onClick={() => this.getStations("E", "-ace")}></img>
-                        <img src={G} alt="G" className="line-icon" onClick={() => this.getStations("G", "-g")}></img>
-                        <img src={One} alt="1" className="line-icon" onClick={() => this.getStations("1", "")}></img>
-                        <img src={Two} alt="2" className="line-icon" onClick={() => this.getStations("2", "")}></img>
-                        <img src={Three} alt="3" className="line-icon" onClick={() => this.getStations("3", "")}></img>
-                        <img src={Four} alt="4" className="line-icon" onClick={() => this.getStations("4", "")}></img>
-                        <img src={Five} alt="5" className="line-icon" onClick={() => this.getStations("5", "")}></img>
-                        <img src={Six} alt="6" className="line-icon" onClick={() => this.getStations("6", "")}></img>
-                        <img src={J} alt="J" className="line-icon" onClick={() => this.getStations("J", "-jz")}></img>
-                        <img src={Z} alt="Z" className="line-icon" onClick={() => this.getStations("Z", "-jz")}></img>
-                        <img src={B} alt="B" className="line-icon" onClick={() => this.getStations("B", "-bdfm")}></img>
-                        <img src={D} alt="D" className="line-icon" onClick={() => this.getStations("D", "-bdfm")}></img>
-                        <img src={F} alt="F" className="line-icon" onClick={() => this.getStations("F", "-bdfm")}></img>
-                        <img src={M} alt="M" className="line-icon" onClick={() => this.getStations("M", "-bdfm")}></img>
-                        <img src={Seven} alt="7" className="line-icon" onClick={() => this.getStations("7", "-7")}></img>
-                        <img src={L} alt="L" className="line-icon" onClick={() => this.getStations("L", "-l")}></img>
-                        <img src={N} alt="N" className="line-icon" onClick={() => this.getStations("N", "-nqrw")}></img>
-                        <img src={Q} alt="Q" className="line-icon" onClick={() => this.getStations("Q", "-nqrw")}></img>
-                        <img src={R} alt="R" className="line-icon" onClick={() => this.getStations("R", "-nqrw")}></img>
-                        <img src={W} alt="W" className="line-icon" onClick={() => this.getStations("W", "-nqrw")}></img>
-                        <img src={Si} alt="SI" className="line-icon" onClick={() => this.getStations("Si", "-si")}></img>
+                        <button className="line-icon"><img src={A} alt="A"  onClick={() => this.getStations("A", "-ace")}></img></button>
+                        <button className="line-icon"><img src={C} alt="C" onClick={() => this.getStations("C", "-ace")}></img></button>
+                        <button className="line-icon"><img src={E} alt="E" onClick={() => this.getStations("E", "-ace")}></img></button>
+                        <button className="line-icon"><img src={G} alt="G" onClick={() => this.getStations("G", "-g")}></img></button>
+                        <button className="line-icon"><img src={One} alt="1" onClick={() => this.getStations("1", "")}></img></button>
+                        <button className="line-icon"><img src={Two} alt="2" onClick={() => this.getStations("2", "")}></img></button>
+                        <button className="line-icon"><img src={Three} alt="3" onClick={() => this.getStations("3", "")}></img></button>
+                        <button className="line-icon"><img src={Four} alt="4" onClick={() => this.getStations("4", "")}></img></button>
+                        <button className="line-icon"><img src={Five} alt="5" onClick={() => this.getStations("5", "")}></img></button>
+                        <button className="line-icon"><img src={Six} alt="6" onClick={() => this.getStations("6", "")}></img></button>
+                        <button className="line-icon"><img src={J} alt="J" onClick={() => this.getStations("J", "-jz")}></img></button>
+                        <button className="line-icon"><img src={Z} alt="Z" onClick={() => this.getStations("Z", "-jz")}></img></button>
+                        <button className="line-icon"><img src={B} alt="B" onClick={() => this.getStations("B", "-bdfm")}></img></button>
+                        <button className="line-icon"><img src={D} alt="D" onClick={() => this.getStations("D", "-bdfm")}></img></button>
+                        <button className="line-icon"><img src={F} alt="F" onClick={() => this.getStations("F", "-bdfm")}></img></button>
+                        <button className="line-icon"><img src={M} alt="M" onClick={() => this.getStations("M", "-bdfm")}></img></button>
+                        <button className="line-icon"><img src={Seven} alt="7" onClick={() => this.getStations("7", "-7")}></img></button>
+                        <button className="line-icon"><img src={L} alt="L" onClick={() => this.getStations("L", "-l")}></img></button>
+                        <button className="line-icon"><img src={N} alt="N" onClick={() => this.getStations("N", "-nqrw")}></img></button>
+                        <button className="line-icon"><img src={Q} alt="Q" onClick={() => this.getStations("Q", "-nqrw")}></img></button>
+                        <button className="line-icon"><img src={R} alt="R" onClick={() => this.getStations("R", "-nqrw")}></img></button>
+                        <button className="line-icon"><img src={W} alt="W" onClick={() => this.getStations("W", "-nqrw")}></img></button>
+                        <button className="line-icon"><img src={Si} alt="SI" onClick={() => this.getStations("Si", "-si")}></img></button>
             </div>
-            <div className="station-details">
-            <ClosestTrains key="closesTrains" station={station} north={north} south={south} start={this.state.start} end={this.state.end}/>
+            <div className="station-details" id="closest-trains">
+            <ClosestTrains className="hide" key="closesTrains" station={station} north={north} south={south} start={this.state.start} end={this.state.end}/>
             </div>
             </div>
             <div className="sidebar right">
@@ -308,12 +318,12 @@ class MainPage extends React.Component {
             <h3>{this.state.start}</h3>
             
             <ul id="north">
-            {north}
+            {allNorth}
             </ul>
             <h3>{this.state.end}</h3>
             
             <ul id="south">
-            {south}
+            {allSouth}
             </ul>
             </div>
             
