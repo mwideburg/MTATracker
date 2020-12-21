@@ -7,7 +7,7 @@ var GtfsRealtimeBindings = require('gtfs-realtime-bindings');
 class GTrain extends React.Component {
     constructor(props){
         super(props)
-        debugger
+        
         this.state = {
             path: props.url,
             trains : 0,

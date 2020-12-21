@@ -188,7 +188,7 @@ class MainPage extends React.Component {
             
             return (
                 <li key={ele}>
-                    <p className={animation}> Arrival: {this.formatTime(ele)}</p>
+                    Arrival: {this.formatTime(ele)}
                 </li>
             )
         })
@@ -202,7 +202,7 @@ class MainPage extends React.Component {
             
             return (
                 <li key={ele}>
-                    <p className={animation}> Arrival: {this.formatTime(ele)}</p>
+                    Arrival: {this.formatTime(ele)}
                 </li>
             )
         })

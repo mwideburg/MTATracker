@@ -38,7 +38,7 @@ const ClosestTrains = ({ north, south, station, start, end }) => {
         // Create a new JavaScript Date object based on the timestamp
         // multiplied by 1000 so that the argument is in milliseconds, not seconds.
         var date = unix_timestamp * 1000
-        debugger
+        
         let difUnix = date - now
         difUnix /= 1000
         difUnix = Math.floor(difUnix / 60)
