@@ -277,7 +277,9 @@ class MainPage extends React.Component {
                 
         <div className="main-container">
             <div className="sidebar left">
+                <div className="sticky-icon">
                 {lineImg}
+                </div>
                 
                 <SidebarStations items={this.state.items} line={this.state.line} updateStation={this.updateStation}/>
 
